@@ -61,15 +61,14 @@ class Group:
 st1 = Student('Male', 30, 'Steve', 'Jobs', 'AN142')
 st2 = Student('Female', 25, 'Liza', 'Taylor', 'AN145')
 gr = Group('PD1')
-gr.add_student(st1)
-gr.add_student(st2)
-print(gr)
 
-assert str(gr.find_student('Jobs')) == str(st1), 'Test1'
-assert gr.find_student('Jobs2') is None, 'Test2'
-assert isinstance(gr.find_student('Jobs'), Student) is True, 'Метод поиска должен возвращать экземпляр'
+# Додаємо 10 студентів
+for i in range(1, 11):
+    gr.add_student(Student('Male', 20+i, f'Name{i}', f'Last{i}', f'RB{i}'))
 
-gr.delete_student('Taylor')
-print(gr)  # Only one student
+try:
+    # 11-й студент — викличе виняток
+    gr.add_student(Student('Male', 22, 'Extra', 'Student', 'RB11'))
+except TooManyStudentsError as e:
+    print(f"Помилка: {e}")
 
-gr.delete_student('Taylor')  # No error!
